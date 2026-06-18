@@ -1,11 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-//Использован .serial, т.к. последующие тесты зависят от результатов предыдущих и должны выполняться последовательно.
-//В реальном проекте тесты лучше делать независимыми, чтобы они могли работать параллельно. 
-test.describe.serial("API-тесты для Restful-booker", () => {
+test.describe.serial("API-тесты для Restful-booker @api", () => {
   const baseURL = "https://restful-booker.herokuapp.com";
 
-  //Тестовые данные и переменные вынесены наверх, для увеличения читаемости и упрощения поддержки
   const credentials = {
     username: "admin",
     password: "password123",
@@ -31,9 +28,6 @@ test.describe.serial("API-тесты для Restful-booker", () => {
 
   let bookingId;
   let token;
-
-  //Авторизация вынесена в beforeAll, так как она не относится к реализации методов PUT и DELETE.
-  //Такой подход увеличит читаемость и упростит поддержку.
 
   test.beforeAll(async ({ request }) => {
     const response = await request.post(`${baseURL}/auth`, {
